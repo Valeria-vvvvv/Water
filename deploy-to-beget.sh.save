@@ -25,16 +25,6 @@ fi
 
 echo -e "${GREEN}✅ Проект собран${NC}\n"
 
-# Шаг 2: Очистка старых файлов на сервере
-# echo -e "${BLUE}🗑️  Шаг 2: Очистка старых файлов на сервере${NC}"
-# echo -e "${YELLOW}Введите пароль: ${NC}"
-
-#ssh ${SSH_USER}@${SSH_HOST} "rm -rf ${REMOTE_PATH}/* && mkdir -p ${REMOTE_PATH}"
-
-#if [ $? -ne 0 ]; then
- #   echo -e "${RED}❌ Ошибка при очистке сервера${NC}"
-  #  exit 1
-#fi
 
 echo -e "${GREEN}✅ Старые файлы удалены${NC}\n"
 

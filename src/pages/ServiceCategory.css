@@ -107,7 +107,7 @@
 
 .service-image {
   position: relative;
-  min-height: 200px;
+  /* min-height: 200px; */
   overflow: hidden;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .service-card .service-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   margin: 0 0 8px 0;
   color: #ffffff !important;
@@ -209,7 +209,6 @@
 
 /* Информационная секция */
 .category-info-section {
-  /* margin-top: 80px; */
   text-align: center;
 }
 

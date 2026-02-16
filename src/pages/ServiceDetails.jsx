@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useService } from "../hooks/useServices";
 import { useThematicImageUrl } from "../hooks/useThematicImageUrl";
@@ -63,6 +63,11 @@ export const ServiceDetails = () => {
     categoryId,
     service,
   );
+
+  // Скролл наверх при монтировании компонента
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryId, serviceId]);
 
   if (loading) {
     return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useServices } from "../hooks/useServices";
 import Footer from "../components/ui/Footer/Footer";
@@ -6,6 +6,11 @@ import "./Products.css";
 
 export const Products = () => {
   const { categories, loading, error } = useServices();
+
+  // Скролл наверх при монтировании компонента
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (loading) {
     return (

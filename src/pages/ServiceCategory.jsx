@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { useServicesByCategory, useServices } from "../hooks/useServices";
 import { useThematicImageUrl } from "../hooks/useThematicImageUrl";
@@ -8,10 +8,7 @@ import "./ServiceCategory.css";
 const ServiceCard = ({ categoryId, service }) => {
   const { url, loading } = useThematicImageUrl(categoryId, service);
   return (
-    <Link
-      to={`/services/${categoryId}/${service.id}`}
-      className="service-card"
-    >
+    <Link to={`/services/${categoryId}/${service.id}`} className="service-card">
       <div className="service-image">
         {!loading && url ? (
           <img src={url} alt={service.title} />
@@ -38,6 +35,11 @@ export const ServiceCategory = () => {
   const { services, loading, error } = useServicesByCategory(categoryId);
 
   const category = categories[categoryId];
+
+  // Скролл наверх при монтировании компонента
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryId]);
 
   const handleOperatorClick = (e) => {
     e.preventDefault();

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getThematicKeywords } from "../data/serviceThematicImages";
-import { fetchThematicImageUrl as fetchYandexImage } from "../services/yandexImageService";
-import { fetchThematicImageUrl as fetchUnsplashImage } from "../services/unsplashService";
+import { getRandomPexelsImage } from "../services/pexelsService";
 
 const DIRECT_IMAGE_CATEGORIES = ["water_tanks", "turnkey_repair"];
 const LOCAL_FALLBACK = [
@@ -25,7 +24,7 @@ function hash(s) {
 /**
  * Возвращает URL тематического фото для карточки услуги.
  * Для water_tanks и turnkey_repair — сразу service.image.
- * Для остальных: сначала Yandex Search API, при отсутствии ключа/ошибке — Unsplash, затем локальное фото.
+ * Для остальных: загружает напрямую из Pexels API (без Firebase Storage).
  */
 export function useThematicImageUrl(categoryId, service) {
   const [url, setUrl] = useState("");
@@ -38,6 +37,7 @@ export function useThematicImageUrl(categoryId, service) {
       return;
     }
 
+    // Для категорий с прямыми изображениями
     if (DIRECT_IMAGE_CATEGORIES.includes(categoryId)) {
       setUrl(service.image || "");
       setLoading(false);
@@ -56,12 +56,15 @@ export function useThematicImageUrl(categoryId, service) {
     setLoading(true);
 
     (async () => {
-      let apiUrl = await fetchYandexImage(keywords);
-      if (!apiUrl) apiUrl = await fetchUnsplashImage(keywords);
+      // Получаем изображение напрямую из Pexels API
+      const pexelsUrl = await getRandomPexelsImage(keywords);
+
       if (cancelled) return;
-      if (apiUrl) {
-        setUrl(apiUrl);
+
+      if (pexelsUrl) {
+        setUrl(pexelsUrl);
       } else {
+        // Fallback на локальные изображения
         const i = hash(`${categoryId}-${service.id}`) % LOCAL_FALLBACK.length;
         setUrl(LOCAL_FALLBACK[i]);
       }
