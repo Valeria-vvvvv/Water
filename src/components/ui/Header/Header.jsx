@@ -63,20 +63,20 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-// Эффект для скролла
-useEffect(() => {
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 50);
-  };
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []); // пустой массив 
+  // Эффект для скролла
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); // пустой массив
 
-// Эффект для закрытия меню при смене страницы
-useEffect(() => {
-  setIsServicesOpen(false);
-  setIsMenuOpen(false);
-}, [location.pathname]); // ← важно! зависимость от пути
+  // Эффект для закрытия меню при смене страницы
+  useEffect(() => {
+    setIsServicesOpen(false);
+    setIsMenuOpen(false);
+  }, [location.pathname]); // ← важно! зависимость от пути
 
   // Функция для навигации к секции
   const handleNavClick = (href) => {
@@ -119,7 +119,7 @@ useEffect(() => {
           onClick={() => setIsPhoneOpen(!isPhoneOpen)}
         >
           <div className="phone-wrapper">
-            <a href="tel:+74993946409" className="phone-link">
+            <a href="tel:+79490517136" className="phone-link">
               <svg
                 className="phone-icon"
                 viewBox="0 0 24 24"
@@ -134,8 +134,7 @@ useEffect(() => {
                 />
               </svg>
               <div className="phone-info">
-                <span className="phone-number">+7 (499) 394-64-09</span>
-                {/* <span className="phone-action">Заказать звонок</span> */}
+                <span className="phone-number">+7 (949) 051-71-36</span>
               </div>
             </a>
             <div className="phone-location">г. Донецк</div>
