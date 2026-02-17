@@ -1,45 +1,167 @@
-.dark-modal {
-  /* Базовый тёмный фон и текст, перекрываем возможные светлые utility-классы */
-  background-color: #13161b !important; /* gray-800 */
-  color: #e5e7eb !important;            /* gray-200 */
-  border: 1px solid #545e6d;            /* gray-700 */
-  box-shadow: 0 10px 25px rgba(51, 50, 50, 0.4)
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
 }
 
-.dark-modal header {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1d29 0%, #13161f 100%);
+  border: 2px solid #2563eb;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   background: transparent;
-  border-bottom: 1px solid #374151;
-}
-
-.dark-modal footer {
-  background: transparent;
-  border-top: 1px solid #374151;
-}
-
-.dark-modal main {
-  background: transparent;
-  color: inherit;
-}
-
-.dark-modal button {
-  color: #e5e7eb;
-  background-color: transparent;
   border: none;
+  color: #9ca3af;
+  font-size: 28px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.dark-modal button:hover {
-  background-color: #374151;
-  color: #ffffff;
+.modal-close:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  transform: rotate(90deg);
 }
 
-.dark-modal button:focus-visible {
-  outline: 2px solid #60a5fa; /* sky-400 */
-  outline-offset: 2px;
+.modal-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 0.5s ease;
 }
 
-/* Заголовки немного светлее для контраста */
-.dark-modal h1,
-.dark-modal h2,
-.dark-modal h3 {
-  color: #f3f4f6; /* gray-100 */
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.modal-icon svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.modal-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.modal-message {
+  font-size: 16px;
+  color: #9ca3af;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.modal-button {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+}
+
+.modal-button:active {
+  transform: translateY(0);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+
+  .modal-title {
+    font-size: 24px;
+  }
+
+  .modal-message {
+    font-size: 14px;
+  }
+
+  .modal-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .modal-icon svg {
+    width: 30px;
+    height: 30px;
+  }
 }

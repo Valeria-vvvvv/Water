@@ -4,10 +4,6 @@ import { db } from "../config/firebase";
 export const submitContactForm = async (formData) => {
   // В режиме разработки - только логируем (из-за proxy/firewall)
   if (import.meta.env.DEV) {
-    console.log("📝 DEV MODE: Заявка получена:", formData);
-    console.log("ℹ️ Локально Firebase и Telegram заблокированы proxy/firewall");
-    console.log("✅ На продакшене (Vercel) все будет работать!");
-
     // Имитируем успешную отправку
     return {
       success: true,
@@ -33,23 +29,17 @@ export const submitContactForm = async (formData) => {
       setTimeout(() => reject(new Error("Firebase timeout")), 3000),
     );
 
-    const docRef = await Promise.race([savePromise, timeoutPromise]);
+    await Promise.race([savePromise, timeoutPromise]);
     firebaseSuccess = true;
-    console.log("✅ Firebase: сохранено", docRef.id);
   } catch (firebaseErr) {
-    console.warn(
-      "⚠️ Firebase недоступен → переходим на fallback",
-      firebaseErr.message,
-    );
     usedFallback = true;
   }
 
   // 2. Отправляем в Telegram В ЛЮБОМ СЛУЧАЕ (и как уведомление, и как fallback)
   try {
     telegramSuccess = await sendTelegramNotification(formData, usedFallback);
-    console.log("✅ Telegram: уведомление отправлено");
   } catch (tgErr) {
-    console.warn("⚠️ Telegram тоже упал:", tgErr.message);
+    // Тихо игнорируем ошибку
   }
 
   // Результат для пользователя
@@ -75,22 +65,41 @@ const sendTelegramNotification = async (formData, isFallback = false) => {
 
   if (!botToken || !chatId) throw new Error("Telegram не настроен");
 
-  const prefix = isFallback ? "⚠️ [FALLBACK] Firebase недоступен!\n\n" : "";
+  // Красивое форматирование с эмодзи и разделителями
+  const fallbackWarning = isFallback
+    ? "⚠️ <b>ВНИМАНИЕ:</b> Firebase недоступен!\n\n"
+    : "";
+
   const message =
-    `${prefix}🔔 Новая заявка\n\n` +
-    `👤 ${formData.name} ${formData.surname || ""}\n` +
-    `📞 ${formData.phone}\n` +
-    `📧 ${formData.email || "—"}\n` +
-    `💬 ${formData.comment || "—"}\n` +
-    `📍 Источник: ${formData.source || "contact_form"}\n` +
-    `⏰ ${new Date().toLocaleString("ru-RU")}`;
+    `${fallbackWarning}` +
+    `🔔 <b>НОВАЯ ЗАЯВКА С САЙТА</b>\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `👤 <b>Имя:</b> ${formData.name}${formData.surname ? " " + formData.surname : ""}\n` +
+    `📱 <b>Телефон:</b> <code>${formData.phone}</code>\n` +
+    (formData.email ? `📧 <b>Email:</b> ${formData.email}\n` : "") +
+    (formData.comment
+      ? `💬 <b>Комментарий:</b>\n<i>${formData.comment}</i>\n`
+      : "") +
+    `\n━━━━━━━━━━━━━━━━━━━━\n` +
+    `📍 <b>Источник:</b> ${formData.source || "Форма обратной связи"}\n` +
+    `⏰ <b>Дата:</b> ${new Date().toLocaleString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
 
   const res = await fetch(
     `https://api.telegram.org/bot${botToken}/sendMessage`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text: message }),
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: "HTML", // Включаем HTML форматирование
+      }),
     },
   );
 

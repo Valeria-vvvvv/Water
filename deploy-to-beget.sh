@@ -10,7 +10,7 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}🚀 Деплой на Beget${NC}\n"
 
 # Данные для подключения
-SSH_USER="vlelikkh_"
+SSH_USER="vlelikkh_deploy"
 SSH_HOST="vlelikkh.beget.tech"
 REMOTE_PATH="plumberdonetsk.ru/public_html"
 

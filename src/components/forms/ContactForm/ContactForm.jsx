@@ -74,7 +74,6 @@ const ContactForm = () => {
       const result = await submitContactForm(formData);
 
       if (result.success) {
-        console.log("Заявка успешно сохранена:", result.id);
         setIsModalOpen(true);
 
         // Очистка формы после успешной отправки
@@ -85,16 +84,10 @@ const ContactForm = () => {
           email: "",
           comment: "",
         });
-
-        // В режиме разработки показываем дополнительное сообщение
-        if (import.meta.env.DEV && result.message) {
-          console.info("DEV MODE:", result.message);
-        }
       } else {
         throw new Error(result.error || "Ошибка при сохранении заявки");
       }
     } catch (error) {
-      console.error("Ошибка при отправке заявки:", error);
       alert("Произошла ошибка при отправке. Попробуйте еще раз.");
     } finally {
       setIsSubmitting(false);

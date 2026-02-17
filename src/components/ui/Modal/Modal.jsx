@@ -1,88 +1,53 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "../Icon/Icon";
 import "./Modal.css";
 
-/**
- * Компонент модальное окно.
- * @param {boolean} props.isOpen - Компонент открыт/закрыт.
- * @param {string} props.title - Заголовок компонента.
- * @param {Function} props.onClose - Коллбек для закрытия компонента.
- * @param {ReactNode} props.children - Дочерние элементы.
- * @param {string} props.className - Стили компонента.
- * @param {ReactNode} props.footer - Футер компонента.
- */
-export const Modal = ({
-  isOpen,
-  title,
-  onClose,
-  children,
-  footer,
-  className,
-}) => {
-  // Создаем ссылку на DOM-элемент
-  const modalRef = useRef(null);
-
-  // Обработчик клика за пределами
-  const handleOutsideClick = useCallback(
-    (event) => {
-      if (modalRef?.current && !modalRef?.current?.contains(event?.target)) {
-        // Закрываем только Modal
-        event?.stopPropagation();
-        onClose();
-      }
-    },
-    [onClose]
-  );
-
-  // Обработчик нажатия клавиши Esc
-  const handleKeyPress = useCallback(
-    (event) => {
-      if (event?.key === "Escape") onClose();
-    },
-    [onClose]
-  );
-
+export const Modal = ({ isOpen, onClose, title, message }) => {
   useEffect(() => {
     if (isOpen) {
-      document?.addEventListener("mousedown", handleOutsideClick, true);
-      document?.addEventListener("keydown", handleKeyPress);
-    }
-    return () => {
-      document?.removeEventListener("mousedown", handleOutsideClick, true);
-      document?.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [isOpen, onClose, handleOutsideClick, handleKeyPress]);
+      document.body.style.overflow = "hidden";
 
-  return (
-    isOpen &&
-    createPortal(
-      <div className="fixed z-3 top-0 left-0 w-full h-full flex justify-center items-center bg-gray-400/50">
-        <div
-          ref={modalRef}
-          onMouseDown={(e) => e.stopPropagation()}
-          className={`rounded-md w-[430px] ${className || ""}`}
-        >
-          <header className="flex justify-between relative min-h-10 border-gray-200 border-b-1 px-4 py-4">
-            {title && <h2 className="text-2xl font-semibold">{title}</h2>}
-            <button
-              onClick={onClose}
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 w-10 h-10 inline-flex justify-center items-center text-xl rounded-md cursor-pointer"
-            >
-              <Icon name="close" />
-            </button>
-          </header>
-          <main className="p-4 min-h-38 overflow-y-auto max-h-[450px]">
-            {children}
-          </main>
-          {footer && (
-            <footer className="flex justify-end border-gray-200 border-t-1 px-4 py-4 gap-3">
-              {footer}
-            </footer>
-          )}
+      const handleEscape = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+
+      document.addEventListener("keydown", handleEscape);
+
+      return () => {
+        document.body.style.overflow = "unset";
+        document.removeEventListener("keydown", handleEscape);
+      };
+    }
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
+
+        <div className="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
         </div>
-      </div>,
-      document.body
-    )
+
+        <h2 className="modal-title">{title}</h2>
+        <p className="modal-message">{message}</p>
+
+        <button className="modal-button" onClick={onClose}>
+          Отлично!
+        </button>
+      </div>
+    </div>,
+    document.body,
   );
 };
