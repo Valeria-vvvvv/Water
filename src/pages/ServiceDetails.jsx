@@ -201,8 +201,10 @@ export const ServiceDetails = () => {
 
               <div className="info-card">
                 <div className="info-icon">🚗</div>
-                <h4>Бесплатный выезд</h4>
-                <p>Выезд мастера и диагностика бесплатно</p>
+                <h4>Фиксированная стоимость выезда</h4>
+                <p>
+                  Выезд мастера и диагностика — по единой фиксированной цене
+                </p>
               </div>
 
               <div className="info-card">

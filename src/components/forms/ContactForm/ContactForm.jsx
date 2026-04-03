@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./ContactForm.css";
 import { Modal } from "../../ui/Modal/Modal";
 import { submitContactForm } from "../../../services/contactService";
@@ -10,6 +11,7 @@ const ContactForm = () => {
     surname: "",
     email: "",
     comment: "",
+    consent: false,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,10 +19,10 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
 
     // Очистка ошибки при изменении поля
@@ -67,6 +69,11 @@ const ContactForm = () => {
       return;
     }
 
+    if (!formData.consent) {
+      alert("Необходимо согласие на обработку данных");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -83,6 +90,7 @@ const ContactForm = () => {
           surname: "",
           email: "",
           comment: "",
+          consent: false,
         });
       } else {
         throw new Error(result.error || "Ошибка при сохранении заявки");
@@ -179,6 +187,41 @@ const ContactForm = () => {
               </div>
 
               <div className="form-submit">
+                <label className="contact-form__consent">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <span>
+                    Принимаю условия{" "}
+                    <Link
+                      to="/agreement"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Соглашения
+                    </Link>
+                    ,{" "}
+                    <Link
+                      to="/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Политики
+                    </Link>{" "}
+                    и{" "}
+                    <Link
+                      to="/consent"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Согласия
+                    </Link>
+                  </span>
+                </label>
                 <button
                   type="submit"
                   className="submit-btn"

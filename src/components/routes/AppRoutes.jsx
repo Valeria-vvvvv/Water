@@ -6,11 +6,19 @@ import { Products } from "../../pages/Products";
 import { ProductDetails } from "../../pages/ProductDetails";
 import { ServiceCategory } from "../../pages/ServiceCategory";
 import { ServiceDetails } from "../../pages/ServiceDetails";
+import { Prices } from "../../pages/Prices";
+import { Privacy } from "../../pages/Privacy";
+import { Agreement } from "../../pages/Agreement";
+import { Consent } from "../../pages/Consent";
 
 /** Массив роутов приложения */
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/products", element: <Products /> },
+  { path: "/prices", element: <Prices /> },
+  { path: "/privacy", element: <Privacy /> },
+  { path: "/agreement", element: <Agreement /> },
+  { path: "/consent", element: <Consent /> },
   { path: "/products/:id", element: <ProductDetails /> },
   { path: "/services/:categoryId", element: <ServiceCategory /> },
   { path: "/services/:categoryId/:serviceId", element: <ServiceDetails /> },

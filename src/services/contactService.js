@@ -2,9 +2,9 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 export const submitContactForm = async (formData) => {
-  // В режиме разработки - только логируем (из-за proxy/firewall)
+  // ВРЕМЕННО: для тестирования локально
+  // Закомментируй эти строки чтобы протестировать отправку локально
   if (import.meta.env.DEV) {
-    // Имитируем успешную отправку
     return {
       success: true,
       message: "Заявка принята! (DEV MODE - данные не отправлены)",

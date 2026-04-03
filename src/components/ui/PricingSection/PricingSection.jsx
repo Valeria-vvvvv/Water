@@ -35,7 +35,7 @@ const PricingSection = () => {
         </div>
 
         <div className="pricing-button-container">
-          <Link to="/products" className="pricing-all-prices-btn">
+          <Link to="/prices" className="pricing-all-prices-btn">
             Все цены
           </Link>
         </div>

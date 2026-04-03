@@ -4,7 +4,7 @@ import "./Header.css";
 
 // Массив пунктов меню
 const NAV_ITEMS = [
-  { label: "ПРАЙС", href: "#pricing" },
+  { label: "ПРАЙС", href: "/prices", isRoute: true },
   { label: "ОТЗЫВЫ", href: "#testimonials" },
   { label: "СВЯЗАТЬСЯ С НАМИ", href: "#contact" },
 ];
@@ -79,20 +79,23 @@ const Header = () => {
   }, [location.pathname]); // ← важно! зависимость от пути
 
   // Функция для навигации к секции
-  const handleNavClick = (href) => {
+  const handleNavClick = (item) => {
     setIsMenuOpen(false);
 
-    // Если мы на главной странице
+    if (item.isRoute) {
+      navigate(item.href);
+      return;
+    }
+
     if (location.pathname === "/") {
-      const element = document.querySelector(href);
+      const element = document.querySelector(item.href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Если на другой странице - переходим на главную и прокручиваем
       navigate("/");
       setTimeout(() => {
-        const element = document.querySelector(href);
+        const element = document.querySelector(item.href);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
@@ -199,7 +202,7 @@ const Header = () => {
           {NAV_ITEMS.map((item, index) => (
             <button
               key={index}
-              onClick={() => handleNavClick(item.href)}
+              onClick={() => handleNavClick(item)}
               className={`nav-btn ${
                 item.label === "СВЯЗАТЬСЯ С НАМИ" ? "contact-btn" : ""
               }`}

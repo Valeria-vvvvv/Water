@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./HeroForm.css";
 import { submitContactForm } from "../../../services/contactService";
 import { Modal } from "../../ui/Modal/Modal";
@@ -101,17 +102,17 @@ const HeroForm = () => {
           />
           <span>
             Принимаю условия{" "}
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <Link to="/agreement" target="_blank" rel="noopener noreferrer">
               Соглашения
-            </a>
+            </Link>
             ,{" "}
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <Link to="/privacy" target="_blank" rel="noopener noreferrer">
               Политики
-            </a>{" "}
+            </Link>{" "}
             и{" "}
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <Link to="/consent" target="_blank" rel="noopener noreferrer">
               Согласия
-            </a>
+            </Link>
           </span>
         </label>
 
