@@ -4,9 +4,6 @@ import "./index.css";
 import { App } from "./App.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 
-// Утилита для загрузки изображений (доступна в консоли через window.imageLoader)
-import "./utils/imageLoader.js";
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>

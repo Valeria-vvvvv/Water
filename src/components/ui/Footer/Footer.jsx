@@ -33,8 +33,8 @@ const Footer = () => {
             </div>
 
             <div className="footer-contact">
-              <a href="tel:+79490517136" className="footer-phone">
-                +7 (949) 051-71-36
+              <a href="tel:+79494633819" className="footer-phone">
+                +7 (949) 463-38-19
               </a>
               <div className="footer-location">г. Донецк</div>
             </div>

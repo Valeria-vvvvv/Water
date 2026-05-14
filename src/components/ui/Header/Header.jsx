@@ -2,104 +2,40 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 
-// Массив пунктов меню
 const NAV_ITEMS = [
-  { label: "ПРАЙС", href: "/prices", isRoute: true },
-  { label: "ОТЗЫВЫ", href: "#testimonials" },
-  { label: "СВЯЗАТЬСЯ С НАМИ", href: "#contact" },
-];
-
-// Услуги для выпадающего меню - новая структура услуг (точно как у конкурентов)
-const SERVICES_MENU = [
-  {
-    id: "handyman",
-    title: "Услуга муж на час",
-    type: "category", // обычная категория
-  },
-  {
-    id: "water_tanks",
-    title: "Установка накопительных баков автономного водоснабжения",
-    type: "direct", // прямая ссылка на услугу
-    serviceId: "water-tank-installation",
-  },
-  {
-    id: "turnkey_repair",
-    title: "Ремонт с 0 под ключ",
-    type: "direct",
-    serviceId: "remont-s-nulya-pod-klyuch",
-  },
-  {
-    id: "plumbing",
-    title: "Сантехнические работы",
-    type: "category",
-  },
-  {
-    id: "electrical",
-    title: "Электромонтажные работы",
-    type: "category",
-  },
-  {
-    id: "furniture",
-    title: "Сборка разборка мебели",
-    type: "category",
-  },
-  {
-    id: "windows",
-    title: "Ремонт пластиковых окон",
-    type: "category",
-  },
-  {
-    id: "minor_repair",
-    title: "Мелкий ремонт в квартире",
-    type: "category",
-  },
+  { label: "ЦЕНЫ", href: "#wd-prices" },
+  { label: "ПРЕИМУЩЕСТВА", href: "#wd-advantages" },
+  { label: "СВЯЗАТЬСЯ С НАМИ", href: "#wd-contact" },
 ];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isPhoneOpen, setIsPhoneOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Эффект для скролла
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // пустой массив
+  }, []);
 
-  // Эффект для закрытия меню при смене страницы
   useEffect(() => {
-    setIsServicesOpen(false);
     setIsMenuOpen(false);
-  }, [location.pathname]); // ← важно! зависимость от пути
+  }, [location.pathname]);
 
-  // Функция для навигации к секции
   const handleNavClick = (item) => {
     setIsMenuOpen(false);
-
-    if (item.isRoute) {
-      navigate(item.href);
-      return;
-    }
-
+    const scrollToSection = () => {
+      const el = document.querySelector(item.href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    };
     if (location.pathname === "/") {
-      const element = document.querySelector(item.href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      scrollToSection();
     } else {
       navigate("/");
-      setTimeout(() => {
-        const element = document.querySelector(item.href);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
+      setTimeout(scrollToSection, 100);
     }
   };
 
@@ -108,11 +44,11 @@ const Header = () => {
       <div className="header-container">
         <div className="logo">
           <Link to="/">
-            <img src="/assets/header/plumber.png" alt="plumber Logo" />
+            <img src="/src/water/plumber2.png" alt="Logo" />
             <span className="logo-text">
-              СТРОЙ
+              ДОСТАВКА
               <br />
-              <span className="logo-text-small">НЕ САМ</span>
+              <span className="logo-text-small">техническОЙ ВОДЫ</span>
             </span>
           </Link>
         </div>
@@ -122,7 +58,7 @@ const Header = () => {
           onClick={() => setIsPhoneOpen(!isPhoneOpen)}
         >
           <div className="phone-wrapper">
-            <a href="tel:+79490517136" className="phone-link">
+            <a href="tel:+7949-463-38-19" className="phone-link">
               <svg
                 className="phone-icon"
                 viewBox="0 0 24 24"
@@ -137,7 +73,7 @@ const Header = () => {
                 />
               </svg>
               <div className="phone-info">
-                <span className="phone-number">+7 (949) 051-71-36</span>
+                <span className="phone-number">+7 (949) 463-38-19</span>
               </div>
             </a>
             <div className="phone-location">г. Донецк</div>
@@ -154,58 +90,11 @@ const Header = () => {
         </button>
 
         <nav className={`nav-buttons ${isMenuOpen ? "open" : ""}`}>
-          {/* Выпадающее меню услуг */}
-          <div
-            className="services-dropdown"
-            onMouseEnter={() => setIsServicesOpen(true)}
-            onMouseLeave={() => setIsServicesOpen(false)}
-          >
-            <Link to="/products" className="nav-btn services-btn">
-              УСЛУГИ
-              <svg
-                className="dropdown-arrow"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </Link>
-
-            {isServicesOpen && (
-              <div className="services-menu">
-                <div className="services-list">
-                  {SERVICES_MENU.map((service) => (
-                    <Link
-                      key={service.id}
-                      to={
-                        service.type === "direct"
-                          ? `/services/${service.id}/${service.serviceId}`
-                          : `/services/${service.id}`
-                      }
-                      className="service-item"
-                      onClick={() => setIsServicesOpen(false)}
-                    >
-                      {service.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
           {NAV_ITEMS.map((item, index) => (
             <button
               key={index}
               onClick={() => handleNavClick(item)}
-              className={`nav-btn ${
-                item.label === "СВЯЗАТЬСЯ С НАМИ" ? "contact-btn" : ""
-              }`}
+              className={`nav-btn ${item.label === "СВЯЗАТЬСЯ С НАМИ" ? "contact-btn" : ""}`}
             >
               {item.label}
             </button>

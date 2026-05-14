@@ -1,76 +1,66 @@
-# 🔧 Сайт ремонтных услуг
+# � Сайт доставких технической воды — Строй Не Сам
 
-> Современный веб-сайт для компании по предоставлению ремонтных услуг с интеграцией Firebase и Telegram
+> Сайт компании по доставке технической воды по Донецку, Макеевке и ДНР. React + Vite + Firebase + Telegram.
 
-[![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.0.11-646CFF.svg)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.x-646CFF.svg)](https://vitejs.dev/)
 [![Firebase](https://img.shields.io/badge/Firebase-12.8.0-orange.svg)](https://firebase.google.com/)
 [![License](https://img.shields.io/badge/License-Private-red.svg)]()
 
-## 📋 Описание проекта
+## 📋 О проекте
 
-Полнофункциональный веб-сайт для компании, предоставляющей услуги по ремонту и обслуживанию. Включает каталог услуг, формы обратной связи с интеграцией Telegram и Firebase для хранения заявок.
+Сайт компании **Строй Не Сам** — доставка технической воды цистернами по Донецку, Макеевке и другим городам ДНР. Вода бесплатна, клиент платит только за доставку.
+
+Контактный телефон: **+7 (949) 463-38-19**
 
 ### Основные возможности
 
-- 🏠 **Главная страница** с презентацией услуг
-- 📋 **Каталог услуг** по категориям (сантехника, электрика, мебель и др.)
-- 📝 **Формы обратной связи** с валидацией
-- 📱 **Telegram интеграция** для мгновенных уведомлений
-- 💾 **Firebase Firestore** для хранения заявок
-- 🎨 **Современный дизайн** с анимациями
-- 📱 **Адаптивная верстка** для всех устройств
-- ⚡ **Высокая производительность** благодаря Vite
+- 🏠 Главная страница с презентацией услуг и формой заявки
+- � Страница доставкри воды с тарифами, преимуществами и формой заказа
+- � Формы обратной связи с валидацией
+- 📱 Telegram-интеграция для мгновенных уведомлений о заявках
+- � Firebase Firestore для хранения заявок
+- 🎨 Современный дизайн с анимациями
+- 📱 Адаптивная вёрстка для всех устройств
 
 ## 🛠 Технологический стек
 
-### Frontend
-
-- **React 18.3.1** - UI библиотека
-- **React Router 7.1.3** - Маршрутизация
-- **Vite 6.0.11** - Сборщик и dev-сервер
-- **CSS3** - Стилизация с анимациями
-
-### Backend & Services
-
-- **Firebase Firestore** - База данных для заявок
-- **Telegram Bot API** - Уведомления о новых заявках
-- **Beget** - Хостинг
-
-### Инструменты разработки
-
-- **ESLint** - Линтер кода
-- **Git** - Контроль версий
+- **React 19** — UI
+- **React Router 7** — маршрутизация
+- **Vite 7** — сборщик и dev-сервер
+- **Firebase Firestore** — база данных заявок
+- **Telegram Bot API** — уведомления
+- **Tailwind CSS** — утилитарные стили
+- **Zustand** — управление состоянием
+- **Swiper** — слайдеры
+- **Beget** — хостинг
 
 ## 📁 Структура проекта
 
 ```
-repair-website/
 ├── src/
-│   ├── components/          # React компоненты
-│   │   ├── forms/          # Формы обратной связи
-│   │   ├── layouts/        # Layouts (Header, Footer)
+│   ├── components/
+│   │   ├── forms/          # Формы (ContactForm, HeroForm)
+│   │   ├── layouts/        # Layouts
 │   │   ├── routes/         # Роутинг
-│   │   └── ui/             # UI компоненты
-│   ├── config/             # Конфигурация (Firebase)
-│   ├── data/               # Статические данные услуг
-│   ├── hooks/              # Custom React hooks
-│   ├── pages/              # Страницы приложения
-│   ├── services/           # API сервисы
+│   │   └── ui/             # UI-компоненты (Header, Footer, Modal и др.)
+│   ├── config/             # Конфигурация Firebase
+│   ├── data/               # Статические данные
+│   ├── hooks/              # Custom hooks
+│   ├── pages/              # Страницы (WaterDelivery, Privacy и др.)
+│   ├── services/           # API-сервисы
 │   ├── utils/              # Утилиты
-│   ├── App.jsx             # Главный компонент
-│   ├── main.jsx            # Точка входа
-│   └── index.css           # Глобальные стили
-├── public/                 # Статические файлы
-├── assets/                 # Изображения и медиа
-├── dist/                   # Собранный проект
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── public/                 # Статические файлы и медиа
+├── functions/              # Firebase Cloud Functions
 ├── .env                    # Переменные окружения (dev)
 ├── .env.production         # Переменные окружения (prod)
 ├── .htaccess.example       # Конфигурация Apache
 ├── deploy.sh               # Скрипт деплоя
-├── package.json            # Зависимости
-├── vite.config.js          # Конфигурация Vite
-└── README.md               # Документация
+├── vite.config.js
+└── package.json
 ```
 
 ## 🚀 Быстрый старт
@@ -79,50 +69,33 @@ repair-website/
 
 - Node.js >= 18.0.0
 - npm >= 9.0.0
-- Git
 
 ### Установка
 
-1. **Клонируйте репозиторий**
-
 ```bash
-git clone https://github.com/ваш-username/repair-website.git
-cd repair-website
-```
-
-2. **Установите зависимости**
-
-```bash
+# 1. Установить зависимости
 npm install
-```
 
-3. **Настройте переменные окружения**
-
-Создайте файл `.env` в корне проекта:
-
-```bash
+# 2. Настроить переменные окружения
 cp .env.example .env
 ```
 
-Заполните переменные:
+Заполните `.env`:
 
 ```env
-# Firebase Configuration
-VITE_FIREBASE_API_KEY=ваш_api_key
-VITE_FIREBASE_AUTH_DOMAIN=ваш_домен
-VITE_FIREBASE_PROJECT_ID=ваш_проект
-VITE_FIREBASE_STORAGE_BUCKET=ваш_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=ваш_sender_id
-VITE_FIREBASE_APP_ID=ваш_app_id
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
 
-# Telegram Bot Configuration
-VITE_TELEGRAM_BOT_TOKEN=ваш_токен
-VITE_TELEGRAM_CHAT_ID=ваш_chat_id
+VITE_TELEGRAM_BOT_TOKEN=...
+VITE_TELEGRAM_CHAT_ID=...
 ```
 
-4. **Запустите dev-сервер**
-
 ```bash
+# 3. Запустить dev-сервер
 npm run dev
 ```
 
@@ -130,280 +103,49 @@ npm run dev
 
 ## 📦 Сборка и деплой
 
-### Локальная сборка
-
 ```bash
+# Сборка
 npm run build
-```
 
-Собранные файлы будут в папке `dist/`
-
-### Preview сборки
-
-```bash
+# Preview
 npm run preview
-```
 
-### Деплой на Beget
-
-1. **Подготовьте production переменные**
-
-```bash
-cp .env .env.production
-```
-
-2. **Соберите проект**
-
-```bash
-npm run build
-```
-
-Или используйте скрипт:
-
-```bash
+# Деплой (скрипт)
 ./deploy.sh
 ```
 
-3. **Загрузите на сервер**
+Собранные файлы — в папке `dist/`. Загрузите содержимое в `public_html/` на Beget, создайте `.htaccess` из `.htaccess.example`.
 
-**Через FTP:**
+## 📱 Страницы
 
-- Подключитесь к Beget
-- Загрузите содержимое `dist/` в `public_html/`
-- Создайте `.htaccess` из `.htaccess.example`
+| Путь              | Описание                               |
+| ----------------- | -------------------------------------- |
+| `/`               | Главная — услуги, преимущества, отзывы |
+| `/water-delivery` | Доставка технической воды              |
+| `/privacy`        | Политика конфиденциальности            |
+| `/agreement`      | Пользовательское соглашение            |
+| `/consent`        | Согласие на обработку данных           |
 
-**Через SSH:**
+## � Безопасность
 
-```bash
-ssh ваш-логин@ваш-домен.beget.tech
-cd ~/ваш-репо
-git pull
-npm install
-npm run build
-rm -rf ~/ваш-домен.ru/public_html/*
-cp -r dist/* ~/ваш-домен.ru/public_html/
-cp .htaccess.example ~/ваш-домен.ru/public_html/.htaccess
-```
+- `.env` не попадает в Git
+- Firebase Security Rules — только создание заявок
+- Валидация форм на клиенте
+- Безопасные заголовки в `.htaccess`
 
-Подробная инструкция: [BEGET_DEPLOY_GUIDE.md](./BEGET_DEPLOY_GUIDE.md)
+## 🐛 Частые проблемы
 
-## 🔧 Конфигурация
+**404 при переходе по ссылкам** — проверьте `.htaccess` и mod_rewrite на сервере.
 
-### Firebase
+**Формы не отправляются** — проверьте `.env.production` и пересоберите проект.
 
-1. Создайте проект в [Firebase Console](https://console.firebase.google.com)
-2. Включите Firestore Database
-3. Настройте правила безопасности (см. [QUICK_SECURITY_FIX.md](./QUICK_SECURITY_FIX.md))
-4. Скопируйте конфигурацию в `.env`
+**Firebase/Telegram не работают локально** — это нормально из-за proxy. На продакшене работает штатно.
 
-### Telegram Bot
+## 📞 Контакты
 
-1. Создайте бота через [@BotFather](https://t.me/BotFather)
-2. Получите Bot Token
-3. Узнайте свой Chat ID через [@userinfobot](https://t.me/userinfobot)
-4. Добавьте в `.env`
-
-Подробная инструкция: [TELEGRAM_BOT_SETUP.md](./TELEGRAM_BOT_SETUP.md)
-
-## 📱 Функциональность
-
-### Страницы
-
-- **Главная** (`/`) - Презентация услуг, преимущества, отзывы
-- **Все услуги** (`/products`) - Каталог категорий услуг
-- **Категория услуг** (`/services/:categoryId`) - Список услуг в категории
-- **Детали услуги** (`/services/:categoryId/:serviceId`) - Подробная информация
-
-### Категории услуг
-
-1. **Сантехнические работы** (27 услуг)
-2. **Электромонтажные работы** (24 услуги)
-3. **Услуга муж на час** (13 услуг)
-4. **Сборка/разборка мебели** (8 услуг)
-5. **Ремонт пластиковых окон** (21 услуга)
-6. **Мелкий ремонт в квартире** (13 услуг)
-
-### Формы обратной связи
-
-**Hero Form** (главная страница):
-
-- Имя
-- Телефон
-- Согласие на обработку данных
-
-**Contact Form** (секция контактов):
-
-- Имя
-- Фамилия
-- Телефон
-- Email
-- Комментарий
-
-### Обработка заявок
-
-1. **Firebase Firestore** - Основное хранилище
-2. **Telegram Bot** - Мгновенные уведомления
-3. **Fallback механизм** - Если Firebase недоступен, заявка все равно придет в Telegram
-
-## 🔒 Безопасность
-
-### Реализованные меры
-
-- ✅ Переменные окружения не в Git (`.env` в `.gitignore`)
-- ✅ Firebase Security Rules (только создание заявок)
-- ✅ Валидация форм на клиенте
-- ✅ Защита от XSS и CSRF
-- ✅ SSL сертификат (Let's Encrypt на Beget)
-- ✅ Безопасные заголовки в `.htaccess`
-
-### Рекомендации
-
-- Регулярно меняйте Telegram Bot Token (раз в 3-6 месяцев)
-- Мониторьте Firebase Usage
-- Обновляйте зависимости: `npm update`
-- Проверяйте уязвимости: `npm audit`
-
-Подробнее: [SOLUTION_ANALYSIS.md](./SOLUTION_ANALYSIS.md)
-
-## 📊 Производительность
-
-### Оптимизации
-
-- ⚡ Vite для быстрой сборки
-- 🗜️ Сжатие ресурсов (gzip)
-- 💾 Кэширование статических файлов
-- 🖼️ Оптимизированные изображения
-- 📦 Code splitting
-- 🎨 CSS минификация
-
-### Метрики
-
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3.5s
-- **Lighthouse Score**: 90+
-
-## 🐛 Решение проблем
-
-### Локальная разработка
-
-**Проблема:** Firebase/Telegram не работают локально
-
-**Решение:** Это нормально из-за proxy/firewall. Используется DEV MODE - данные логируются в консоль. На продакшене все работает.
-
-См. [LOCAL_DEV_MODE.md](./LOCAL_DEV_MODE.md)
-
-### Деплой
-
-**Проблема:** 404 при переходе по ссылкам
-
-**Решение:** Проверьте `.htaccess` и mod_rewrite
-
-**Проблема:** Формы не отправляются
-
-**Решение:** Проверьте `.env.production` и пересоберите проект
-
-См. [BEGET_DEPLOY_GUIDE.md](./BEGET_DEPLOY_GUIDE.md)
-
-## 📚 Документация
-
-### Основная документация
-
-- [BEGET_DEPLOY_GUIDE.md](./BEGET_DEPLOY_GUIDE.md) - Полная инструкция по деплою
-- [PRE_DEPLOY_CHECKLIST.md](./PRE_DEPLOY_CHECKLIST.md) - Чеклист перед деплоем
-- [QUICK_SECURITY_FIX.md](./QUICK_SECURITY_FIX.md) - Настройка Firebase Security Rules
-
-### Дополнительная документация
-
-- [TELEGRAM_BOT_SETUP.md](./TELEGRAM_BOT_SETUP.md) - Настройка Telegram бота
-- [TELEGRAM_SECURITY.md](./TELEGRAM_SECURITY.md) - Безопасность Telegram интеграции
-- [SOLUTION_ANALYSIS.md](./SOLUTION_ANALYSIS.md) - Анализ решения
-- [LOCAL_DEV_MODE.md](./LOCAL_DEV_MODE.md) - Режим локальной разработки
-- [ENV_SECURITY.md](./ENV_SECURITY.md) - Защита переменных окружения
-- [HOSTING_ALTERNATIVES.md](./HOSTING_ALTERNATIVES.md) - Альтернативные хостинги
-- [CHANGES_LOG.md](./CHANGES_LOG.md) - История изменений
-
-## 🤝 Разработка
-
-### Команды
-
-```bash
-# Разработка
-npm run dev          # Запуск dev-сервера
-
-# Сборка
-npm run build        # Production сборка
-npm run preview      # Preview сборки
-
-# Деплой
-./deploy.sh          # Автоматический деплой
-
-# Проверка кода
-npm run lint         # Проверка ESLint
-```
-
-### Git workflow
-
-```bash
-# Создание feature branch
-git checkout -b feature/название-фичи
-
-# Коммит изменений
-git add .
-git commit -m "feat: описание изменений"
-
-# Push в репозиторий
-git push origin feature/название-фичи
-
-# Merge в main
-git checkout main
-git merge feature/название-фичи
-git push origin main
-```
-
-### Стандарты кода
-
-- Используйте ESLint для проверки кода
-- Следуйте React best practices
-- Пишите понятные комментарии
-- Используйте семантические имена переменных
-- Разделяйте логику на компоненты
-
-## 📞 Контакты и поддержка
-
-### Техническая поддержка
-
-- **Beget Support:** support@beget.com
-- **Firebase Support:** https://firebase.google.com/support
-- **Telegram Bot:** @novoselova_grammy_bot
-
-### Разработчик
-
-- **Email:** ваш-email@example.com
-- **Telegram:** @ваш-telegram
-
-## 📄 Лицензия
-
-Этот проект является частной собственностью. Все права защищены.
-
-Несанкционированное копирование, распространение или использование запрещено.
+- **Телефон:** +7 (949) 463-38-19
+- **МАХ:** https://max.ru/join/uIgOJQGyVxaGeEX2iBeObfdLKs23VCIzwrqiE1D37YA
 
 ---
 
-## 🎯 Roadmap
-
-### Планируемые улучшения
-
-- [ ] Админ-панель для управления заявками
-- [ ] Интеграция с CRM системой
-- [ ] Онлайн-калькулятор стоимости услуг
-- [ ] Система отзывов с модерацией
-- [ ] Блог с полезными статьями
-- [ ] Мультиязычность (RU/EN)
-- [ ] PWA поддержка
-- [ ] Интеграция с платежными системами
-
----
-
-**Версия:** 1.0.0  
-**Последнее обновление:** 7 февраля 2026  
-**Статус:** Production Ready ✅
+**Версия:** 1.1.0 · **Обновлено:** май 2026 · **Статус:** Production ✅

@@ -2,16 +2,6 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 export const submitContactForm = async (formData) => {
-  // ВРЕМЕННО: для тестирования локально
-  // Закомментируй эти строки чтобы протестировать отправку локально
-  if (import.meta.env.DEV) {
-    return {
-      success: true,
-      message: "Заявка принята! (DEV MODE - данные не отправлены)",
-    };
-  }
-
-  // В ПРОДАКШЕНЕ - реальная отправка
   let firebaseSuccess = false;
   let telegramSuccess = false;
   let usedFallback = false;
