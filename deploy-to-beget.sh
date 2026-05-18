@@ -12,7 +12,7 @@ echo -e "${BLUE}🚀 Деплой на Beget${NC}\n"
 # Данные для подключения
 SSH_USER="vlelikkh"
 SSH_HOST="vlelikkh.beget.tech"
-REMOTE_PATH="plumberdonetsk.ru/public_html"
+REMOTE_PATH="waterdonetsk.ru/public_html"
 
 # Шаг 1: Локальная сборка
 echo -e "${BLUE}📦 Шаг 1: Сборка проекта локально${NC}"
@@ -67,7 +67,7 @@ echo -e "${GREEN}✅ .htaccess скопирован${NC}\n"
 # Готово!
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${GREEN}✅ Деплой успешно завершен!${NC}"
-echo -e "${GREEN}🌐 Проверьте сайт: http://plumberdonetsk.ru${NC}"
+echo -e "${GREEN}🌐 Проверьте сайт: https://waterdonetsk.ru${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 
