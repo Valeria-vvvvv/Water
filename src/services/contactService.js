@@ -7,6 +7,11 @@ export const submitContactForm = async (formData) => {
 
   // 1. Пытаемся сохранить в Supabase (с коротким таймаутом!)
   try {
+    // Проверяем, настроен ли Supabase
+    if (!supabase) {
+      throw new Error("Supabase не настроен");
+    }
+
     const savePromise = supabase.from("contacts").insert({
       ...formData,
       created_at: new Date().toISOString(),
@@ -26,7 +31,7 @@ export const submitContactForm = async (formData) => {
 
     supabaseSuccess = true;
   } catch (supabaseErr) {
-    console.error("Supabase error:", supabaseErr);
+    // Тихая обработка ошибки - не выводим в консоль на продакшене
     usedFallback = true;
   }
 
@@ -34,7 +39,7 @@ export const submitContactForm = async (formData) => {
   try {
     telegramSuccess = await sendTelegramNotification(formData, usedFallback);
   } catch (tgErr) {
-    // Тихо игнорируем ошибку
+    // Тихая обработка ошибки Telegram
   }
 
   // Результат для пользователя
@@ -58,7 +63,9 @@ const sendTelegramNotification = async (formData, isFallback = false) => {
   const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
   const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
 
-  if (!botToken || !chatId) throw new Error("Telegram не настроен");
+  if (!botToken || !chatId) {
+    return false; // Telegram не настроен, тихо возвращаем false
+  }
 
   // Красивое форматирование с эмодзи и разделителями
   const fallbackWarning = isFallback
@@ -85,23 +92,22 @@ const sendTelegramNotification = async (formData, isFallback = false) => {
       minute: "2-digit",
     })}`;
 
-  const res = await fetch(
-    `https://api.telegram.org/bot${botToken}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: "HTML", // Включаем HTML форматирование
-      }),
-    },
-  );
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML", // Включаем HTML форматирование
+        }),
+      },
+    );
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(err);
+    return res.ok;
+  } catch (error) {
+    return false; // Тихая обработка ошибки сети
   }
-
-  return true;
 };

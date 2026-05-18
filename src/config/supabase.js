@@ -4,12 +4,17 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Проверка наличия переменных окружения
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error("Supabase environment variables are not set");
+// Создание клиента Supabase только если переменные окружения установлены
+let supabase = null;
+
+if (supabaseUrl && supabaseAnonKey) {
+  try {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  } catch (error) {
+    // Тихая обработка ошибки инициализации
+    supabase = null;
+  }
 }
 
-// Создание клиента Supabase
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
+export { supabase };
 export default supabase;

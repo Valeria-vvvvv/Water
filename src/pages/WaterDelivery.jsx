@@ -73,7 +73,12 @@ const WaterDelivery = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.consent) {
-      alert("Необходимо согласие на обработку данных");
+      // Используем безопасный alert
+      try {
+        alert("Необходимо согласие на обработку данных");
+      } catch {
+        // Тихая обработка ошибки alert
+      }
       return;
     }
     setIsSubmitting(true);
@@ -87,9 +92,21 @@ const WaterDelivery = () => {
       if (result.success) {
         setFormData({ name: "", phone: "", volume: "", consent: false });
         setIsModalOpen(true);
-      } else throw new Error(result.error);
+      } else {
+        // Показываем ошибку безопасно
+        try {
+          alert(result.error || "Произошла ошибка. Попробуйте ещё раз.");
+        } catch {
+          // Тихая обработка ошибки alert
+        }
+      }
     } catch {
-      alert("Произошла ошибка. Попробуйте ещё раз.");
+      // Безопасная обработка ошибки
+      try {
+        alert("Произошла ошибка. Попробуйте ещё раз.");
+      } catch {
+        // Тихая обработка ошибки alert
+      }
     } finally {
       setIsSubmitting(false);
     }
