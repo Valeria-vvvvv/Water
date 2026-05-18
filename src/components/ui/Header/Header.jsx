@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
+import logoImg from "../../../water/plumber2.png";
 
 const NAV_ITEMS = [
   { label: "ЦЕНЫ", href: "#wd-prices" },
@@ -44,7 +45,7 @@ const Header = () => {
       <div className="header-container">
         <div className="logo">
           <Link to="/">
-            <img src="/src/water/plumber2.png" alt="Logo" />
+            <img src={logoImg} alt="Logo" />
             <span className="logo-text">
               ДОСТАВКА
               <br />

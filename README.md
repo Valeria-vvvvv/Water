@@ -1,10 +1,10 @@
 # � Сайт доставких технической воды — Строй Не Сам
 
-> Сайт компании по доставке технической воды по Донецку, Макеевке и ДНР. React + Vite + Firebase + Telegram.
+> Сайт компании по доставке технической воды по Донецку, Макеевке и ДНР. React + Vite + Supabase + Telegram.
 
 [![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.x-646CFF.svg)](https://vitejs.dev/)
-[![Firebase](https://img.shields.io/badge/Firebase-12.8.0-orange.svg)](https://firebase.google.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-2.105.4-green.svg)](https://supabase.com/)
 [![License](https://img.shields.io/badge/License-Private-red.svg)]()
 
 ## 📋 О проекте
@@ -19,7 +19,7 @@
 - � Страница доставкри воды с тарифами, преимуществами и формой заказа
 - � Формы обратной связи с валидацией
 - 📱 Telegram-интеграция для мгновенных уведомлений о заявках
-- � Firebase Firestore для хранения заявок
+- � Supabase для хранения заявок
 - 🎨 Современный дизайн с анимациями
 - 📱 Адаптивная вёрстка для всех устройств
 
@@ -28,7 +28,7 @@
 - **React 19** — UI
 - **React Router 7** — маршрутизация
 - **Vite 7** — сборщик и dev-сервер
-- **Firebase Firestore** — база данных заявок
+- **Supabase** — база данных заявок
 - **Telegram Bot API** — уведомления
 - **Tailwind CSS** — утилитарные стили
 - **Zustand** — управление состоянием
@@ -44,7 +44,7 @@
 │   │   ├── layouts/        # Layouts
 │   │   ├── routes/         # Роутинг
 │   │   └── ui/             # UI-компоненты (Header, Footer, Modal и др.)
-│   ├── config/             # Конфигурация Firebase
+│   ├── config/             # Конфигурация Supabase
 │   ├── data/               # Статические данные
 │   ├── hooks/              # Custom hooks
 │   ├── pages/              # Страницы (WaterDelivery, Privacy и др.)
@@ -54,7 +54,7 @@
 │   ├── main.jsx
 │   └── index.css
 ├── public/                 # Статические файлы и медиа
-├── functions/              # Firebase Cloud Functions
+├── functions/              # Cloud Functions (устарело)
 ├── .env                    # Переменные окружения (dev)
 ├── .env.production         # Переменные окружения (prod)
 ├── .htaccess.example       # Конфигурация Apache
@@ -83,12 +83,8 @@ cp .env.example .env
 Заполните `.env`:
 
 ```env
-VITE_FIREBASE_API_KEY=...
-VITE_FIREBASE_AUTH_DOMAIN=...
-VITE_FIREBASE_PROJECT_ID=...
-VITE_FIREBASE_STORAGE_BUCKET=...
-VITE_FIREBASE_MESSAGING_SENDER_ID=...
-VITE_FIREBASE_APP_ID=...
+VITE_SUPABASE_URL=ваш_проект_url_из_supabase
+VITE_SUPABASE_ANON_KEY=ваш_anon_ключ_из_supabase
 
 VITE_TELEGRAM_BOT_TOKEN=...
 VITE_TELEGRAM_CHAT_ID=...
@@ -129,7 +125,7 @@ npm run preview
 ## � Безопасность
 
 - `.env` не попадает в Git
-- Firebase Security Rules — только создание заявок
+- Supabase RLS (Row Level Security) — только создание заявок
 - Валидация форм на клиенте
 - Безопасные заголовки в `.htaccess`
 
@@ -139,7 +135,7 @@ npm run preview
 
 **Формы не отправляются** — проверьте `.env.production` и пересоберите проект.
 
-**Firebase/Telegram не работают локально** — это нормально из-за proxy. На продакшене работает штатно.
+**Supabase/Telegram не работают локально** — это нормально из-за proxy. На продакшене работает штатно.
 
 ## 📞 Контакты
 

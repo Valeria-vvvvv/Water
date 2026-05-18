@@ -1,27 +1,32 @@
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { supabase } from "../config/supabase";
 
 export const submitContactForm = async (formData) => {
-  let firebaseSuccess = false;
+  let supabaseSuccess = false;
   let telegramSuccess = false;
   let usedFallback = false;
 
-  // 1. Пытаемся сохранить в Firebase (с коротким таймаутом!)
+  // 1. Пытаемся сохранить в Supabase (с коротким таймаутом!)
   try {
-    const savePromise = addDoc(collection(db, "contacts"), {
+    const savePromise = supabase.from("contacts").insert({
       ...formData,
-      createdAt: serverTimestamp(),
+      created_at: new Date().toISOString(),
       status: "new",
     });
 
-    // Таймаут 3 секунды - если Firebase не ответил, идем дальше
+    // Таймаут 3 секунды - если Supabase не ответил, идем дальше
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Firebase timeout")), 3000),
+      setTimeout(() => reject(new Error("Supabase timeout")), 3000),
     );
 
-    await Promise.race([savePromise, timeoutPromise]);
-    firebaseSuccess = true;
-  } catch (firebaseErr) {
+    const result = await Promise.race([savePromise, timeoutPromise]);
+
+    if (result.error) {
+      throw new Error(result.error.message);
+    }
+
+    supabaseSuccess = true;
+  } catch (supabaseErr) {
+    console.error("Supabase error:", supabaseErr);
     usedFallback = true;
   }
 
@@ -33,7 +38,7 @@ export const submitContactForm = async (formData) => {
   }
 
   // Результат для пользователя
-  if (firebaseSuccess || telegramSuccess) {
+  if (supabaseSuccess || telegramSuccess) {
     return {
       success: true,
       message: usedFallback
@@ -57,7 +62,7 @@ const sendTelegramNotification = async (formData, isFallback = false) => {
 
   // Красивое форматирование с эмодзи и разделителями
   const fallbackWarning = isFallback
-    ? "⚠️ <b>ВНИМАНИЕ:</b> Firebase недоступен!\n\n"
+    ? "⚠️ <b>ВНИМАНИЕ:</b> Supabase недоступен!\n\n"
     : "";
 
   const message =

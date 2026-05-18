@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "./WaterDelivery.css";
 import { submitContactForm } from "../services/contactService";
 import { Modal } from "../components/ui/Modal/Modal";
+import water2Img from "../water/water2.PNG";
+import waterImg from "../water/water-img.png";
 
 const PRICES = [
   { volume: "До 500 литров", price: "1 500 руб." },
@@ -36,12 +38,12 @@ const ADVANTAGES = [
   {
     icon: "🫰",
     title: "Шланг 50 метров · до 9 этажа",
-    desc: "Длина шланга 50 м позволяет наполнять баки до 9 этажа включительно. Мощный насос перекачивает 1 тонну воды на 9 этаж примерно за 30 минут.",
+    desc: "🏢 Доставляем до 14 этажа включительно — длина шланга 75 м. ⬆️ После 9 этажа — длина шланга 50м: доплата 500 рублей",
   },
   {
     icon: "🤝",
     title: "Делим воду с соседом",
-    desc: "Можно разделить заказ с соседом из одного подъезда. Также принимаем тару по 5 л — до 20 единиц на один адрес.",
+    desc: "Можно разделить заказ с соседом из одного подъезда. Также принимаем тару по 5 л — до 20 единиц на один адрес. Можно разделить заказ на несколько квартир.",
   },
   {
     icon: "🏗️",
@@ -122,7 +124,7 @@ const WaterDelivery = () => {
           <div className="wd-hero__image-wrap">
             <div className="wd-hero__image-glow" />
             <img
-              src="/src/water/water2.PNG"
+              src={water2Img}
               alt="Доставка воды"
               className="wd-hero__image"
             />
@@ -316,10 +318,7 @@ const WaterDelivery = () => {
               </div>
             </div>
             <div className="wd-about__image">
-              <img
-                src="/src/water/water-img.png"
-                alt="Доставка технической воды"
-              />
+              <img src={waterImg} alt="Доставка технической воды" />
             </div>
           </div>
         </div>
