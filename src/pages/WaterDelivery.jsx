@@ -7,11 +7,11 @@ import water2Img from "../water/water2.PNG";
 import waterImg from "../water/water-img.png";
 
 const PRICES = [
-  { volume: "До 500 литров", price: "1 500 руб." },
-  { volume: "До 1 000 литров", price: "2 000 руб.", popular: true },
-  { volume: "2 тонны", price: "4 000 руб." },
-  { volume: "3 тонны", price: "6 000 руб." },
-  { volume: "4 тонны", price: "7 500 руб." },
+  { volume: "От 1 литра до 500", price: "2 000 руб." },
+  { volume: "От 500 до 1 000 литров", price: "2 500 руб.", popular: true },
+  { volume: "2 куба", price: "4 500 руб." },
+  { volume: "3 куба", price: "6 500 руб." },
+  { volume: "4 куба", price: "8 000 руб." },
 ];
 
 const ADVANTAGES = [
@@ -37,8 +37,8 @@ const ADVANTAGES = [
   },
   {
     icon: "🫰",
-    title: "Шланг 50 метров · до 9 этажа",
-    desc: "🏢 Доставляем до 14 этажа включительно — длина шланга 75 м. ⬆️ После 9 этажа — длина шланга 50м: доплата 500 рублей",
+    title: "Доставляем до 9 этажа включительно",
+    desc: "🏢 Доставляем до 9 этажа включительно — длина шланга 50м ⬆",
   },
   {
     icon: "🤝",
@@ -61,6 +61,7 @@ const WaterDelivery = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -116,14 +117,17 @@ const WaterDelivery = () => {
     <div className="wd-page">
       {/* HERO */}
       <section className="wd-hero">
-        <video
-          className="wd-hero__video"
-          src="/assets/header/plumber.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
+        {!videoError && (
+          <video
+            className="wd-hero__video"
+            src="/assets/header/plumber.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            onError={() => setVideoError(true)}
+          />
+        )}
         <div className="wd-hero__overlay" />
         <div className="wd-hero__container">
           <div className="wd-hero__text">
@@ -133,8 +137,8 @@ const WaterDelivery = () => {
               Привозим техническую воду по Донецку, ДНР. Вода{" "}
               <strong>бесплатна</strong> — платите только за доставку.
             </p>
-            <a href="tel:+79490517136" className="wd-hero__call-btn">
-              Позвонить: +7 (949) 051-71-36
+            <a href="tel:+79494633819" className="wd-hero__call-btn">
+              Позвонить
             </a>
           </div>
 
@@ -245,10 +249,8 @@ const WaterDelivery = () => {
             ))}
           </div>
           <div className="wd-prices__note">
-            <p>🏢 Доставляем до 14 этажа включительно — длина шланга 75 м</p>
-            <p>
-              ⬆️ После 9 этажа — доплата <strong>500 рублей</strong>
-            </p>
+            <p>🏢 Доставляем до 9 этажа включительно без каких либо доплат — длина шланга 50м</p>
+            <p>⬆</p>
           </div>
         </div>
       </section>

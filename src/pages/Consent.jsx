@@ -8,7 +8,7 @@ export const Consent = () => {
   }, []);
 
   const companyName = 'ИП "Строй Не Сам"';
-  const phone = "+7 (949) 051-71-36";
+  const phone = "+7 (949) 463-38-19";
   const email = "stroy.ne.sam1@yandex.ru";
 
   return (
